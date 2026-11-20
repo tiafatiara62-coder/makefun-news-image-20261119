@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The World Today — v3 entry for news-image-20261119.
+"""The World Today — v4 entry for news-image-20261119.
 
 Copies the pre-drawn broadsheet (33 verified stories from Thursday
 19 November 2026) to the output directory as entry.png.
@@ -33,11 +33,13 @@ def main():
     if os.path.getsize(dst) != size:
         raise SystemExit(f"copy incomplete: {dst} is not {size} bytes")
 
-    src_digest = hashlib.sha256(open(src, "rb").read()).hexdigest()
-    digest = hashlib.sha256(open(dst, "rb").read()).hexdigest()
-    if digest != src_digest:
-        raise SystemExit(f"copy mismatch: {dst} sha256 {digest} != source {src_digest}")
-    print(f"wrote {dst} ({size} bytes, sha256 {digest})")
+    def digest(path):
+        with open(path, "rb") as fh:
+            return hashlib.sha256(fh.read()).hexdigest()
+
+    if digest(dst) != digest(src):
+        raise SystemExit(f"copy mismatch: {dst} sha256 differs from source")
+    print(f"wrote {dst} ({size} bytes, sha256 {digest(dst)})")
 
 
 if __name__ == "__main__":
