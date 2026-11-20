@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The World Today — v4 entry for news-image-20261119.
+"""The World Today — v5 entry for news-image-20261119.
 
 Copies the pre-drawn broadsheet (33 verified stories from Thursday
 19 November 2026) to the output directory as entry.png.
